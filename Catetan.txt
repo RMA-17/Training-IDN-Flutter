@@ -1,0 +1,20 @@
+Flutter
+
+
+Kelebihan Flutter:
+
+- Flutter memungkinkan kita untuk membuat aplikasi yang Indah
+
+- Flutter berjalan dengan sangat cepat (fast)
+Flutter menggunakan graphic engine bernama skia-2D yang juga digunakan pada chrome dan android. Kode Flutter menggunakan bahasa Dart yang memungkinkan
+
+- Flutter sangat produktif
+Flutter punya hot reload, klo di Android rebuild ulang pas running, flutter g ush, tinggal klik reload maka akan refresh.
+
+Fungsi dari folder android adalah untuk meng-konfigurasi sistem-sistem yang ada di Android.
+
+Folder build adalah tempat menaruh APK yang sudah di build.
+
+Folder lib adalah inti dari project flutter nya.
+
+
