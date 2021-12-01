@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../theme/theme.dart';
 import 'home/home_page.dart';
 import 'news/news_page.dart';
 import 'profile/profile_page.dart';
@@ -48,7 +49,7 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: const Color(0xff0E2392),
+          backgroundColor: primaryColor,
           title: Text(
             appBarTitle,
             style: GoogleFonts.montserrat(
@@ -79,12 +80,12 @@ class _MainPageState extends State<MainPage>
                       Text('User',
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(
-                                fontSize: 15, color: Color(0xff0E2392)),
+                                fontSize: 15, color: primaryColor),
                           )),
                       Text('Status',
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(
-                                fontSize: 15, color: Color(0xff0E2392)),
+                                fontSize: 15, color: primaryColor),
                           ))
                     ],
                   ),
@@ -98,22 +99,22 @@ class _MainPageState extends State<MainPage>
               ListTile(
                 leading: const Icon(
                   Icons.help_center_outlined,
-                  color: Color(0xff0E2392),
+                  color: primaryColor,
                 ),
                 title: Text('Tentang Kami',
                     style: GoogleFonts.montserrat(
-                      textStyle: const TextStyle(color: Color(0xff0E2392)),
+                      textStyle: const TextStyle(color: primaryColor),
                     )),
                 onTap: () {},
               ),
               ListTile(
                   leading: const Icon(
                     Icons.dark_mode_outlined,
-                    color: Color(0xff0E2392),
+                    color: primaryColor,
                   ),
                   title: Text('Mode Gelap',
                       style: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(color: Color(0xff0E2392)),
+                        textStyle: const TextStyle(color: primaryColor),
                       )),
                   trailing: CupertinoSwitch(
                     value: false,
@@ -141,8 +142,7 @@ class _MainPageState extends State<MainPage>
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-            color: const Color(0xff0E2392),
-            borderRadius: BorderRadius.circular(50)),
+            color: primaryColor, borderRadius: BorderRadius.circular(50)),
         child: TabBar(
           labelColor: Colors.white,
           unselectedLabelColor: Colors.grey,

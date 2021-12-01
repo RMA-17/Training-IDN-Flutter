@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salary/pages/salary/detail_salary.dart';
 import 'pages/auth/signin_page.dart';
 import 'pages/home/home_page.dart';
 import 'pages/main_page.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) =>
             const HomePage(), //dan khusus untuk rute pertama, namanya harus '/' yang lain bebas.
         '/sign-in': (context) => const SignInPage(),
-        '/main-page': (context) => const MainPage()
+        '/main-page': (context) => const MainPage(),
+        '/detail-salary': (context) => const DetailSalary()
       },
     );
   }

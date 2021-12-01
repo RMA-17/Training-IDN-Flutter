@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../theme/theme.dart';
+
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
 
@@ -22,7 +24,7 @@ class SignInPage extends StatelessWidget {
                 style: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
                       fontSize: 36,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: semiBold,
                       color: Color(0xff0E2392)),
                 ),
               ),
@@ -35,7 +37,7 @@ class SignInPage extends StatelessWidget {
               style: GoogleFonts.montserrat(
                 textStyle: const TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: semiBold,
                     color: Color(0xff0E2392)),
               ),
             ),
@@ -60,7 +62,7 @@ class SignInPage extends StatelessWidget {
                 style: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: semiBold,
                       color: Color(0xff0E2392)),
                 )),
             const SizedBox(height: 4),
@@ -87,15 +89,14 @@ class SignInPage extends StatelessWidget {
                 child: Text('Lupa Password?',
                     style: GoogleFonts.montserrat(
                         textStyle: const TextStyle(
-                            color: Color(0xff0E2392),
-                            fontWeight: FontWeight.w600)))),
+                            color: primaryColor, fontWeight: semiBold)))),
             const SizedBox(height: 40),
             InkWell(
                 child: Container(
                     height: 54,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: const Color(0xff0E2392),
+                      color: primaryColor,
                     ),
                     child: Align(
                         alignment: Alignment.center,
@@ -104,7 +105,7 @@ class SignInPage extends StatelessWidget {
                                 textStyle: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
-                                    fontWeight: FontWeight.w600))))),
+                                    fontWeight: semiBold))))),
                 onTap: () {
                   Navigator.pushNamed(context, '/main-page');
                 }),

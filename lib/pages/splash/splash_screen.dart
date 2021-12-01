@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../theme/theme.dart';
+
 //Pertama ketik stl, kalo error pencet Alt + enter.
 //Setiap kita mau buat class, kita mau menambahkan statefull dan stateless
 //Statefull = Layout yang datanya bisa berubah
@@ -21,15 +23,15 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     //Untuk setting timeout screen buat ke activity setelahnya
-    Timer(const Duration(seconds: 5), 
-    () => Navigator.pushNamed(context, '/sign-in'));
+    Timer(const Duration(seconds: 5),
+        () => Navigator.pushNamed(context, '/sign-in'));
   }
 
   @override
   Widget build(BuildContext context) {
     //Scaffold = Kerangka
     return Scaffold(
-      backgroundColor: const Color(0xff0E2392),
+      backgroundColor: primaryColor,
       body: Center(
         //Column ini untuk buat LinearLayout
         child: Column(
@@ -54,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   textStyle: const TextStyle(
                       fontSize: 24,
                       //Karena semi-bold, makanya disetting w600
-                      fontWeight: FontWeight.w600,
+                      fontWeight: semiBold,
                       color: Colors.white)),
             )
           ],
