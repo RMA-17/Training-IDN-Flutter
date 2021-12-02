@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:salary/provider/auth_provider.dart';
 
 import '../../theme/theme.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
   @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  //variable untuk menampung EditText.
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    //handleLogin adalah function asycronous
+    handleLogin() async {
+      if (await authProvider.login(
+          username: usernameController.text,
+          password: passwordController.text)) {
+        Navigator.pushNamed(context, '/main-page');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: primaryColor,
+            content: Text(
+                "Gagal Login! Periksa username anda! ${usernameController.text}, ${passwordController.text}",
+                textAlign: TextAlign.center)));
+      }
+    }
+
+    //Untuk menambahkan variable, maka ketiknya diatas return
     return Scaffold(
       //Untuk mengatasi Overflow
       resizeToAvoidBottomInset: false,
@@ -52,6 +80,8 @@ class SignInPage extends StatelessWidget {
                   border: Border.all(color: Colors.grey)),
               child: Center(
                 child: TextFormField(
+                  //Untuk menerima inputan:
+                  controller: usernameController,
                   decoration: const InputDecoration.collapsed(
                       hintText: 'Tulis Username Kamu'),
                 ),
@@ -74,6 +104,7 @@ class SignInPage extends StatelessWidget {
                     border: Border.all(color: Colors.grey)),
                 child: Center(
                   child: TextFormField(
+                    controller: passwordController,
                     //Untuk menyembunyikan password saat diisi:
                     obscureText: true,
                     decoration: const InputDecoration.collapsed(
@@ -106,9 +137,7 @@ class SignInPage extends StatelessWidget {
                                     color: Colors.white,
                                     fontSize: 18,
                                     fontWeight: semiBold))))),
-                onTap: () {
-                  Navigator.pushNamed(context, '/main-page');
-                }),
+                onTap: handleLogin),
           ],
         ),
       ),
