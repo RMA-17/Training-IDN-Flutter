@@ -2,151 +2,167 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:salary/model/login_karyawan.dart';
+import 'package:salary/provider/auth_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView(shrinkWrap: true, children: [
-      Stack(
-        children: [
-          Container(
-            height: 200,
-            //double.infinity = match_parent di xml
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(50),
-              ),
-              boxShadow: [
-                BoxShadow(color: Colors.grey, spreadRadius: 3, blurRadius: 3)
-              ],
-              image: DecorationImage(
-                  image: AssetImage('images/img_home.png'), fit: BoxFit.cover),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 155, left: 20, right: 20),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-              height: 100,
+    //Untuk memanggil dari API:
+
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    LoginKaryawanModel loginKaryawanModel = authProvider.loginKaryawanModel;
+
+    return Container(
+      child: ListView(shrinkWrap: true, children: [
+        Stack(
+          children: [
+            Container(
+              height: 200,
+              //double.infinity = match_parent di xml
+              width: double.infinity,
               decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(15), right: Radius.circular(15)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(50),
+                ),
                 boxShadow: [
-                  BoxShadow(
-                      blurRadius: 5, color: Colors.grey, offset: Offset(2, 2))
+                  BoxShadow(color: Colors.grey, spreadRadius: 3, blurRadius: 3)
                 ],
+                image: DecorationImage(
+                    image: AssetImage('images/img_home.png'),
+                    fit: BoxFit.cover),
               ),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Selamat Datang',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 15,
-                            color: const Color(0xff0E2392),
-                            fontWeight: FontWeight.w600)),
-                    const SizedBox(height: 3),
-                    Text('Fulan',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10,
-                            color: const Color(0xff0E2392),
-                            fontWeight: FontWeight.w600)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 155, left: 20, right: 20),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                height: 100,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.horizontal(
+                      left: Radius.circular(15), right: Radius.circular(15)),
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 5, color: Colors.grey, offset: Offset(2, 2))
                   ],
                 ),
-                const Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Total gaji bulan ini:',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 15,
-                            color: const Color(0xff0E2392),
-                            fontWeight: FontWeight.w600)),
-                    const SizedBox(height: 3),
-                    Text('Rp. 10.000.000',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10,
-                            color: const Color(0xff0E2392),
-                            fontWeight: FontWeight.w600))
-                  ],
-                )
-              ]),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Selamat Datang',
+                          style: GoogleFonts.montserrat(
+                              fontSize: 15,
+                              color: const Color(0xff0E2392),
+                              fontWeight: FontWeight.w600)),
+                      const SizedBox(height: 3),
+                      Text(loginKaryawanModel.namaKaryawan!,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 10,
+                              color: const Color(0xff0E2392),
+                              fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                  const Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Total gaji bulan ini:',
+                          style: GoogleFonts.montserrat(
+                              fontSize: 15,
+                              color: const Color(0xff0E2392),
+                              fontWeight: FontWeight.w600)),
+                      const SizedBox(height: 3),
+                      Text('10.000.000',
+                          style: GoogleFonts.montserrat(
+                              fontSize: 10,
+                              color: const Color(0xff0E2392),
+                              fontWeight: FontWeight.w600))
+                    ],
+                  )
+                ]),
+              ),
             ),
-          ),
-        ],
-      ),
-      const SizedBox(height: 20),
-      Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: Text('Konten Harian',
-            style: GoogleFonts.montserrat(
-                fontSize: 15,
-                color: const Color(0xff0E2392),
-                fontWeight: FontWeight.w600)),
-      ),
-      const SizedBox(height: 20),
-      CarouselSlider(
-        options: CarouselOptions(
-            height: 120,
-            autoPlay: true,
-            enlargeCenterPage: true,
-            enableInfiniteScroll: true,
-            viewportFraction: 0.7,
-            autoPlayAnimationDuration: const Duration(milliseconds: 1000),
-            autoPlayInterval: const Duration(seconds: 5),
-            autoPlayCurve: Curves.fastOutSlowIn),
-        items: [
-          Container(
-              //MediaQuery agar gambar responsif/mengikuti device
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: const DecorationImage(
-                      image: AssetImage('images/img_konten.jpg'),
-                      fit: BoxFit.cover)),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text('Judul Konten'),
-                    Text('Isi Konten'),
-                  ])),
-        ],
-      ),
-      const SizedBox(height: 20),
-      Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: Text('Karyawan',
-            style: GoogleFonts.montserrat(
-                fontSize: 15,
-                color: const Color(0xff0E2392),
-                fontWeight: FontWeight.w600)),
-      ),
-      const SizedBox(height: 30),
-      Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          width: MediaQuery.of(context).size.width - 30,
-          height: MediaQuery.of(context).size.width - 30,
-          child: GridView.count(
-            primary: false,
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.8,
-            children: [
-              buildCard('Babang', 'images/img_person.png', 'Backend Developer'),
-              buildCard('Babang', 'images/img_person.png', 'Backend Developer'),
-              buildCard('Babang', 'images/img_person.png', 'Backend Developer'),
-              buildCard('Mamang', 'images/img_person.png', 'Frontend Developer')
-            ],
-          ))
-    ]);
+          ],
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text('Konten Harian',
+              style: GoogleFonts.montserrat(
+                  fontSize: 15,
+                  color: const Color(0xff0E2392),
+                  fontWeight: FontWeight.w600)),
+        ),
+        const SizedBox(height: 20),
+        CarouselSlider(
+          options: CarouselOptions(
+              height: 120,
+              autoPlay: true,
+              enlargeCenterPage: true,
+              enableInfiniteScroll: true,
+              viewportFraction: 0.7,
+              autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+              autoPlayInterval: const Duration(seconds: 5),
+              autoPlayCurve: Curves.fastOutSlowIn),
+          items: [
+            Container(
+                //MediaQuery agar gambar responsif/mengikuti device
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: const DecorationImage(
+                        image: AssetImage('images/img_konten.jpg'),
+                        fit: BoxFit.cover)),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text('Judul Konten'),
+                      Text('Isi Konten'),
+                    ])),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text('Karyawan',
+              style: GoogleFonts.montserrat(
+                  fontSize: 15,
+                  color: const Color(0xff0E2392),
+                  fontWeight: FontWeight.w600)),
+        ),
+        const SizedBox(height: 30),
+        Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            width: MediaQuery.of(context).size.width - 30,
+            height: MediaQuery.of(context).size.width - 30,
+            child: GridView.count(
+              primary: false,
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 0.8,
+              children: [
+                buildCard(
+                    'Babang', 'images/img_person.png', 'Backend Developer'),
+                buildCard(
+                    'Babang', 'images/img_person.png', 'Backend Developer'),
+                buildCard(
+                    'Babang', 'images/img_person.png', 'Backend Developer'),
+                buildCard(
+                    'Mamang', 'images/img_person.png', 'Frontend Developer')
+              ],
+            ))
+      ]),
+    );
   }
 
   //Membuat Widget di Flutter sama seperti membuat function.

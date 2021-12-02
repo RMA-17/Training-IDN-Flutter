@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:salary/provider/auth_provider.dart';
+import 'package:salary/widget/loading_button.dart';
 
 import '../../theme/theme.dart';
 
@@ -16,12 +17,17 @@ class _SignInPageState extends State<SignInPage> {
   //variable untuk menampung EditText.
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     //handleLogin adalah function asycronous
     handleLogin() async {
+      setState(() {
+        isLoading = true;
+      });
+
       if (await authProvider.login(
           username: usernameController.text,
           password: passwordController.text)) {
@@ -29,10 +35,13 @@ class _SignInPageState extends State<SignInPage> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: primaryColor,
-            content: Text(
-                "Gagal Login! Periksa username anda! ${usernameController.text}, ${passwordController.text}",
+            content: Text("Gagal Login! Periksa username anda!",
                 textAlign: TextAlign.center)));
       }
+
+      setState(() {
+        isLoading = false;
+      });
     }
 
     //Untuk menambahkan variable, maka ketiknya diatas return
@@ -123,20 +132,22 @@ class _SignInPageState extends State<SignInPage> {
                             color: primaryColor, fontWeight: semiBold)))),
             const SizedBox(height: 40),
             InkWell(
-                child: Container(
-                    height: 54,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: primaryColor,
-                    ),
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: Text('Masuk',
-                            style: GoogleFonts.montserrat(
-                                textStyle: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: semiBold))))),
+                child: isLoading
+                    ? const LoadingButton()
+                    : Container(
+                        height: 54,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: primaryColor,
+                        ),
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Text('Masuk',
+                                style: GoogleFonts.montserrat(
+                                    textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: semiBold))))),
                 onTap: handleLogin),
           ],
         ),
