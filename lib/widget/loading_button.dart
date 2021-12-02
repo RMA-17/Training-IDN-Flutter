@@ -13,6 +13,7 @@ class LoadingButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           color: primaryColor,
         ),
+        //Made By Raka M.A
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
