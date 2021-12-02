@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salary/model/news.dart';
 import 'package:salary/pages/news/list_item_news.dart';
 import 'package:salary/theme/theme.dart';
 
 class DetailNews extends StatelessWidget {
-  final ListItemNews itemNews;
+  final BeritaModel itemNews;
   const DetailNews({Key? key, required this.itemNews}) : super(key: key);
 
   @override
@@ -15,10 +16,10 @@ class DetailNews extends StatelessWidget {
         child: Stack(children: [
           Column(
             children: [
-              Image.asset(itemNews.imgPath,
+              Image.network('https://picsum.photos/200/300?grayscale',
                   height: 200, width: double.infinity, fit: BoxFit.cover),
               const SizedBox(height: 15),
-              Text(itemNews.title,
+              Text(itemNews.judulBerita!,
                   style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
                           fontSize: 18,
@@ -31,7 +32,7 @@ class DetailNews extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const Icon(Icons.person),
-                    Text(itemNews.author,
+                    Text(itemNews.penerbit!,
                         style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(
                                 fontSize: 12,
@@ -39,7 +40,7 @@ class DetailNews extends StatelessWidget {
                                 fontWeight: semiBold))),
                     const SizedBox(width: 40),
                     const Icon(Icons.date_range),
-                    Text(itemNews.date)
+                    Text(itemNews.tanggalTerbit!)
                   ],
                 ),
               ),
@@ -47,7 +48,7 @@ class DetailNews extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  itemNews.content,
+                  itemNews.isiBerita!,
                   style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
                           fontSize: 18,

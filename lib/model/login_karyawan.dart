@@ -32,7 +32,6 @@ class LoginKaryawanModel {
 
   //Dynamic adalah agar datanya biar diisi apa saja typedatanya.
   //Kalau Map adalah yang ada di daleman JSON nya.
-  //Kalau tipe GET nya itu POST, maka kita harus memasukkan toJSON
 
   Map<String, dynamic> toJson() {
     return {

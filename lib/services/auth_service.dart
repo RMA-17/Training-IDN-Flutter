@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:salary/model/login_karyawan.dart';
 
 class AuthService {
-  String baseUrl = 'https://salary.kerjainaja.id/api';
+  String baseUrl = 'https://bootcamp.jagoantech.com/api';
 
   Future<LoginKaryawanModel> login(
       {required String username, required String password}) async {

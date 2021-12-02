@@ -20,7 +20,6 @@ class AuthProvider extends ChangeNotifier {
       _loginKaryawanModel = loginKaryawanModel;
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

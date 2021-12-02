@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:salary/provider/news_provider.dart';
 
 import '../../theme/theme.dart';
 
@@ -19,12 +21,18 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 //Tambahkan function bernama initState dengan ketik initState
+
+  getInit() async {
+    await Provider.of<BeritaProvider>(context, listen: false).getAllBerita();
+    Timer(const Duration(seconds: 5),
+        () => Navigator.pushNamed(context, '/sign-in'));
+  }
+
   @override
   void initState() {
     super.initState();
     //Untuk setting timeout screen buat ke activity setelahnya
-    Timer(const Duration(seconds: 5),
-        () => Navigator.pushNamed(context, '/sign-in'));
+    getInit();
   }
 
   @override

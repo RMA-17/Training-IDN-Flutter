@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:salary/model/login_karyawan.dart';
+import 'package:salary/provider/auth_provider.dart';
 
 import '../theme/theme.dart';
 import 'home/home_page.dart';
@@ -47,6 +50,9 @@ class _MainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    LoginKaryawanModel loginKaryawanModel = authProvider.loginKaryawanModel;
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: primaryColor,
@@ -77,12 +83,12 @@ class _MainPageState extends State<MainPage>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('User',
+                      Text(loginKaryawanModel.namaKaryawan!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(
                                 fontSize: 15, color: primaryColor),
                           )),
-                      Text('Status',
+                      Text(loginKaryawanModel.status!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(
                                 fontSize: 15, color: primaryColor),

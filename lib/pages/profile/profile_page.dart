@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:salary/model/login_karyawan.dart';
+import 'package:salary/provider/auth_provider.dart';
 
 import '../../theme/theme.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    LoginKaryawanModel loginKaryawanModel = authProvider.loginKaryawanModel;
+
     return Container(
       padding: const EdgeInsets.all(35),
       child: Column(
@@ -19,7 +24,10 @@ class ProfilePage extends StatelessWidget {
               radius: 50),
           const SizedBox(height: 20),
           Column(
-            children: const [Text('Mamang'), Text('Status')],
+            children: [
+              Text(loginKaryawanModel.namaKaryawan!),
+              Text(loginKaryawanModel.status!)
+            ],
           ),
           const SizedBox(height: 20),
           buttonProfile(Icons.upload_sharp, 'Update Profile',
