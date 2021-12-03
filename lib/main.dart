@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salary/pages/salary/detail_salary.dart';
 import 'package:salary/provider/auth_provider.dart';
+import 'package:salary/provider/konten_provider.dart';
 import 'package:salary/provider/news_provider.dart';
 import 'pages/auth/signin_page.dart';
 import 'pages/home/home_page.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       //Agar provider jalan, taruh semua disini:
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
-        ChangeNotifierProvider(create: (context) => BeritaProvider())
+        ChangeNotifierProvider(create: (context) => BeritaProvider()),
+        ChangeNotifierProvider(create: (context) => KontenProvider()),
       ],
       child: MaterialApp(
         title: 'Salary.id',

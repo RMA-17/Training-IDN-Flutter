@@ -4,7 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:salary/model/login_karyawan.dart';
+import 'package:salary/model/konten.dart';
 import 'package:salary/provider/auth_provider.dart';
+import 'package:salary/provider/konten_provider.dart';
+import 'package:salary/theme/theme.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,8 +16,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Untuk memanggil dari API:
 
+    //API Login
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     LoginKaryawanModel loginKaryawanModel = authProvider.loginKaryawanModel;
+
+    //API Konten
+    KontenProvider kontenProvider = Provider.of<KontenProvider>(context);
+    final listKonten = kontenProvider.kontenModel;
 
     return Container(
       child: ListView(shrinkWrap: true, children: [
@@ -103,34 +111,45 @@ class HomePage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         CarouselSlider(
-          options: CarouselOptions(
-              height: 120,
-              autoPlay: true,
-              enlargeCenterPage: true,
-              enableInfiniteScroll: true,
-              viewportFraction: 0.7,
-              autoPlayAnimationDuration: const Duration(milliseconds: 1000),
-              autoPlayInterval: const Duration(seconds: 5),
-              autoPlayCurve: Curves.fastOutSlowIn),
-          items: [
-            Container(
-                //MediaQuery agar gambar responsif/mengikuti device
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: const DecorationImage(
-                        image: AssetImage('images/img_konten.jpg'),
-                        fit: BoxFit.cover)),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('Judul Konten'),
-                      Text('Isi Konten'),
-                    ])),
-          ],
-        ),
+            options: CarouselOptions(
+                height: 120,
+                autoPlay: true,
+                enlargeCenterPage: true,
+                enableInfiniteScroll: true,
+                viewportFraction: 0.7,
+                autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+                autoPlayInterval: const Duration(seconds: 5),
+                autoPlayCurve: Curves.fastOutSlowIn),
+            items: listKonten
+                .map(
+                  (konten) => Container(
+                      //MediaQuery agar gambar responsif/mengikuti device
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: const DecorationImage(
+                              image: AssetImage('images/img_konten.jpg'),
+                              fit: BoxFit.cover)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(konten.judulKonten!,
+                                style: GoogleFonts.montserrat(
+                                  color: kWhiteColor,
+                                  fontWeight: semiBold,
+                                )),
+                            const SizedBox(height: 10),
+                            Text(konten.isiKonten!,
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.montserrat(
+                                  color: kWhiteColor,
+                                )),
+                          ])),
+                )
+                .toList()),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.only(left: 20),
