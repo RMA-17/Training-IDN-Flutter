@@ -25,6 +25,7 @@ class LoadingButton extends StatelessWidget {
                       color: kWhiteColor,
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation(kWhiteColor))),
+              SizedBox(width: 20),
               Align(
                   alignment: Alignment.center,
                   child: Text('Loading...',

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:salary/provider/salary_provider.dart';
 import 'package:salary/theme/theme.dart';
 
 class DetailSalary extends StatelessWidget {
@@ -7,6 +10,9 @@ class DetailSalary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SalaryProvider salaryProvider = Provider.of<SalaryProvider>(context);
+    int totalGaji = int.parse(salaryProvider.data.gaji![0].totalGaji!);
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: primaryColor,
@@ -24,7 +30,7 @@ class DetailSalary extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Mamang',
+                salaryProvider.data.namaKaryawan!,
                 style: GoogleFonts.montserrat(
                   textStyle: const TextStyle(fontSize: 20),
                 ),
@@ -62,14 +68,14 @@ class DetailSalary extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Text(
-                          'Nama Lengkap',
+                          salaryProvider.data.namaKaryawan!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
                         ),
                         const Spacer(),
                         Text(
-                          'Fulan',
+                          salaryProvider.data.namaKaryawan!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
@@ -133,7 +139,7 @@ class DetailSalary extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          'Kontrak',
+                          salaryProvider.data.status!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
@@ -165,7 +171,7 @@ class DetailSalary extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '0898121331415',
+                          salaryProvider.data.nomorHP!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
@@ -197,7 +203,7 @@ class DetailSalary extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          'fulan',
+                          salaryProvider.data.username!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
@@ -254,14 +260,14 @@ class DetailSalary extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Text(
-                          '2021-11-20',
+                          'Tanggal Masuk',
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
                         ),
                         const Spacer(),
                         Text(
-                          'Rp. 2,400,000',
+                          salaryProvider.data.tanggalMasuk!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
@@ -286,14 +292,15 @@ class DetailSalary extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Text(
-                          '2021-11-20',
+                          'Total Gaji',
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
                         ),
                         const Spacer(),
                         Text(
-                          'Rp. 400,000',
+                          NumberFormat.currency(name: 'IDR', symbol: 'Rp', decimalDigits: 0)
+                              .format(totalGaji),
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
@@ -318,14 +325,46 @@ class DetailSalary extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Text(
-                          '2021-11-21',
+                          'Tanggal Gajian',
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),
                         ),
                         const Spacer(),
                         Text(
-                          'Rp. 2,580,000',
+                          salaryProvider.data.gaji![0].tanggalGajian!,
+                          style: GoogleFonts.montserrat(
+                            textStyle: const TextStyle(color: primaryColor),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Divider(
+                          thickness: 2,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Divider(
+                      thickness: 2,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Potongan',
+                          style: GoogleFonts.montserrat(
+                            textStyle: const TextStyle(color: primaryColor),
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          salaryProvider.data.gaji![0].potongan!,
                           style: GoogleFonts.montserrat(
                             textStyle: const TextStyle(color: primaryColor),
                           ),

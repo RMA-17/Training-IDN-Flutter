@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:salary/provider/konten_provider.dart';
 import 'package:salary/provider/news_provider.dart';
+import 'package:salary/provider/salary_provider.dart';
+import 'package:salary/provider/theme_provider.dart';
 
 import '../../theme/theme.dart';
 
@@ -26,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   getInit() async {
     await Provider.of<BeritaProvider>(context, listen: false).getAllBerita();
     await Provider.of<KontenProvider>(context, listen: false).getAllKonten();
+    await Provider.of<SalaryProvider>(context, listen: false).getPenggajian();
     Timer(const Duration(seconds: 5),
         () => Navigator.pushNamed(context, '/sign-in'));
   }
@@ -39,9 +42,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final color =
+        Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+            ? const Color(0xff121212)
+            : primaryColor;
+
     //Scaffold = Kerangka
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: color,
       body: Center(
         //Column ini untuk buat LinearLayout
         child: Column(

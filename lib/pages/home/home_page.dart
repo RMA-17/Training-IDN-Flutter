@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:salary/model/login_karyawan.dart';
-import 'package:salary/model/konten.dart';
 import 'package:salary/provider/auth_provider.dart';
 import 'package:salary/provider/konten_provider.dart';
+import 'package:salary/provider/theme_provider.dart';
 import 'package:salary/theme/theme.dart';
 
 class HomePage extends StatelessWidget {
@@ -23,6 +23,11 @@ class HomePage extends StatelessWidget {
     //API Konten
     KontenProvider kontenProvider = Provider.of<KontenProvider>(context);
     final listKonten = kontenProvider.kontenModel;
+    final color =
+        Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+            ? Colors.amber
+            : primaryColor;
+    bool isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
 
     return Container(
       child: ListView(shrinkWrap: true, children: [
@@ -50,11 +55,11 @@ class HomePage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 height: 100,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.horizontal(
+                decoration: BoxDecoration(
+                  color: isDarkMode ? const Color(0xff121212) : Colors.white,
+                  borderRadius: const BorderRadius.horizontal(
                       left: Radius.circular(15), right: Radius.circular(15)),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         blurRadius: 5, color: Colors.grey, offset: Offset(2, 2))
                   ],
@@ -67,13 +72,13 @@ class HomePage extends StatelessWidget {
                       Text('Selamat Datang',
                           style: GoogleFonts.montserrat(
                               fontSize: 15,
-                              color: const Color(0xff0E2392),
+                              color: color,
                               fontWeight: FontWeight.w600)),
                       const SizedBox(height: 3),
                       Text(loginKaryawanModel.namaKaryawan!,
                           style: GoogleFonts.montserrat(
                               fontSize: 10,
-                              color: const Color(0xff0E2392),
+                              color: color,
                               fontWeight: FontWeight.w600)),
                     ],
                   ),
@@ -85,13 +90,13 @@ class HomePage extends StatelessWidget {
                       Text('Total gaji bulan ini:',
                           style: GoogleFonts.montserrat(
                               fontSize: 15,
-                              color: const Color(0xff0E2392),
+                              color: color,
                               fontWeight: FontWeight.w600)),
                       const SizedBox(height: 3),
                       Text('10.000.000',
                           style: GoogleFonts.montserrat(
                               fontSize: 10,
-                              color: const Color(0xff0E2392),
+                              color: color,
                               fontWeight: FontWeight.w600))
                     ],
                   )
@@ -105,9 +110,7 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20),
           child: Text('Konten Harian',
               style: GoogleFonts.montserrat(
-                  fontSize: 15,
-                  color: const Color(0xff0E2392),
-                  fontWeight: FontWeight.w600)),
+                  fontSize: 15, color: color, fontWeight: FontWeight.w600)),
         ),
         const SizedBox(height: 20),
         CarouselSlider(
@@ -120,6 +123,7 @@ class HomePage extends StatelessWidget {
                 autoPlayAnimationDuration: const Duration(milliseconds: 1000),
                 autoPlayInterval: const Duration(seconds: 5),
                 autoPlayCurve: Curves.fastOutSlowIn),
+            //Jadi di itemnya tuh tinggal  masukkin aja listnya, g ush pakek children
             items: listKonten
                 .map(
                   (konten) => Container(
@@ -155,15 +159,13 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20),
           child: Text('Karyawan',
               style: GoogleFonts.montserrat(
-                  fontSize: 15,
-                  color: const Color(0xff0E2392),
-                  fontWeight: FontWeight.w600)),
+                  fontSize: 15, color: color, fontWeight: FontWeight.w600)),
         ),
         const SizedBox(height: 30),
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            width: MediaQuery.of(context).size.width - 30,
-            height: MediaQuery.of(context).size.width - 30,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.width,
             child: GridView.count(
               primary: false,
               crossAxisCount: 2,
@@ -171,14 +173,14 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 16,
               childAspectRatio: 0.8,
               children: [
-                buildCard(
-                    'Babang', 'images/img_person.png', 'Backend Developer'),
-                buildCard(
-                    'Babang', 'images/img_person.png', 'Backend Developer'),
-                buildCard(
-                    'Babang', 'images/img_person.png', 'Backend Developer'),
-                buildCard(
-                    'Mamang', 'images/img_person.png', 'Frontend Developer')
+                buildCard('Babang', 'images/img_person.png',
+                    'Backend Developer', context),
+                buildCard('Babang', 'images/img_person.png',
+                    'Backend Developer', context),
+                buildCard('Babang', 'images/img_person.png',
+                    'Backend Developer', context),
+                buildCard('Mamang', 'images/img_person.png',
+                    'Frontend Developer', context)
               ],
             ))
       ]),
@@ -186,12 +188,17 @@ class HomePage extends StatelessWidget {
   }
 
   //Membuat Widget di Flutter sama seperti membuat function.
-  Widget buildCard(String nama, String imgPath, String employee) {
+  Widget buildCard(String nama, String imgPath, String employee, context) {
+    final color =
+        Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+            ? Colors.amber
+            : primaryColor;
+    bool isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
     return Padding(
       padding: const EdgeInsets.only(top: 15, bottom: 5, left: 3, right: 3),
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDarkMode ? const Color(0xff121212) : Colors.white,
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(blurRadius: 5, color: Colors.grey.withOpacity(0.2))
@@ -201,9 +208,7 @@ class HomePage extends StatelessWidget {
           children: [
             Text(employee,
                 style: GoogleFonts.montserrat(
-                    fontSize: 15,
-                    color: const Color(0xff0E2392),
-                    fontWeight: FontWeight.w600)),
+                    fontSize: 15, color: color, fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
             Container(
                 height: 75,
@@ -214,9 +219,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 10),
             Text(nama,
                 style: GoogleFonts.montserrat(
-                    fontSize: 15,
-                    color: const Color(0xff0E2392),
-                    fontWeight: FontWeight.w600))
+                    fontSize: 15, color: color, fontWeight: FontWeight.w600))
           ],
         ),
       ),

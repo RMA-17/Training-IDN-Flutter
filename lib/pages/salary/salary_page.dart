@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:salary/provider/salary_provider.dart';
 import 'package:salary/theme/theme.dart';
 
 class SalaryPage extends StatelessWidget {
@@ -7,6 +9,8 @@ class SalaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SalaryProvider salaryProvider = Provider.of<SalaryProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -31,11 +35,11 @@ class SalaryPage extends StatelessWidget {
                   padding: const EdgeInsets.all(5),
                   child: Row(
                     children: [
-                      const Text('1.'),
+                      Text('${salaryProvider.data.id!}.'),
                       const SizedBox(width: 15),
-                      const Text('Mamang'),
+                      Text(salaryProvider.data.namaKaryawan!),
                       const SizedBox(width: 50),
-                      const Text('2020-20-21'),
+                      Text(salaryProvider.data.tanggalMasuk!),
                       const Spacer(),
                       IconButton(
                           onPressed: () {

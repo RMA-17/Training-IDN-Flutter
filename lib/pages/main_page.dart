@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:salary/model/login_karyawan.dart';
 import 'package:salary/provider/auth_provider.dart';
+import 'package:salary/provider/theme_provider.dart';
 
 import '../theme/theme.dart';
 import 'home/home_page.dart';
@@ -50,12 +51,20 @@ class _MainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
+    final color =
+        Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+            ? Colors.amber
+            : primaryColor;
+
+    bool isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
+
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     LoginKaryawanModel loginKaryawanModel = authProvider.loginKaryawanModel;
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: primaryColor,
+          backgroundColor: color,
           title: Text(
             appBarTitle,
             style: GoogleFonts.montserrat(
@@ -85,13 +94,11 @@ class _MainPageState extends State<MainPage>
                     children: [
                       Text(loginKaryawanModel.namaKaryawan!,
                           style: GoogleFonts.montserrat(
-                            textStyle: const TextStyle(
-                                fontSize: 15, color: primaryColor),
+                            textStyle: TextStyle(fontSize: 15, color: color),
                           )),
                       Text(loginKaryawanModel.status!,
                           style: GoogleFonts.montserrat(
-                            textStyle: const TextStyle(
-                                fontSize: 15, color: primaryColor),
+                            textStyle: TextStyle(fontSize: 15, color: color),
                           ))
                     ],
                   ),
@@ -103,28 +110,40 @@ class _MainPageState extends State<MainPage>
                 thickness: 2,
               ),
               ListTile(
-                leading: const Icon(
+                leading: Icon(
                   Icons.help_center_outlined,
-                  color: primaryColor,
+                  color: color,
                 ),
                 title: Text('Tentang Kami',
                     style: GoogleFonts.montserrat(
-                      textStyle: const TextStyle(color: primaryColor),
+                      textStyle: TextStyle(color: color),
                     )),
                 onTap: () {},
               ),
               ListTile(
-                  leading: const Icon(
-                    Icons.dark_mode_outlined,
-                    color: primaryColor,
-                  ),
-                  title: Text('Mode Gelap',
-                      style: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(color: primaryColor),
-                      )),
+                  leading: isDarkMode
+                      ? Icon(
+                          Icons.wb_sunny,
+                          color: color,
+                        )
+                      : Icon(
+                          Icons.dark_mode_outlined,
+                          color: color,
+                        ),
+                  title: isDarkMode
+                      ? Text('Mode Terang',
+                          style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(color: color),
+                          ))
+                      : Text('Mode Gelap',
+                          style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(color: color),
+                          )),
                   trailing: CupertinoSwitch(
-                    value: false,
-                    onChanged: (value) {},
+                    value: themeProvider.isDarkMode,
+                    onChanged: (value) {
+                      themeProvider.toogleTheme(value);
+                    },
                   )),
             ],
           ),
@@ -148,7 +167,7 @@ class _MainPageState extends State<MainPage>
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-            color: primaryColor, borderRadius: BorderRadius.circular(50)),
+            color: color, borderRadius: BorderRadius.circular(50)),
         child: TabBar(
           labelColor: Colors.white,
           unselectedLabelColor: Colors.grey,

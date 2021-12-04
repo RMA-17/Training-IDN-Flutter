@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:salary/provider/auth_provider.dart';
+import 'package:salary/provider/theme_provider.dart';
 import 'package:salary/widget/loading_button.dart';
 
 import '../../theme/theme.dart';
@@ -21,6 +22,10 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final color =
+        Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+            ? Colors.amber
+            : primaryColor;
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     //handleLogin adalah function asycronous
     handleLogin() async {
@@ -33,7 +38,7 @@ class _SignInPageState extends State<SignInPage> {
           password: passwordController.text)) {
         Navigator.pushNamed(context, '/main-page');
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: primaryColor,
             content: Text("Gagal Login! Periksa username anda!",
                 textAlign: TextAlign.center)));
@@ -59,10 +64,8 @@ class _SignInPageState extends State<SignInPage> {
               child: Text(
                 'Masuk',
                 style: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 36,
-                      fontWeight: semiBold,
-                      color: Color(0xff0E2392)),
+                  textStyle: TextStyle(
+                      fontSize: 36, fontWeight: semiBold, color: color),
                 ),
               ),
             ),
@@ -72,10 +75,7 @@ class _SignInPageState extends State<SignInPage> {
             Text(
               'Username',
               style: GoogleFonts.montserrat(
-                textStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: semiBold,
-                    color: Color(0xff0E2392)),
+                textStyle: const TextStyle(fontSize: 14, fontWeight: semiBold),
               ),
             ),
             const SizedBox(height: 4),
@@ -99,10 +99,8 @@ class _SignInPageState extends State<SignInPage> {
             const SizedBox(height: 12),
             Text('Password',
                 style: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: semiBold,
-                      color: Color(0xff0E2392)),
+                  textStyle:
+                      const TextStyle(fontSize: 14, fontWeight: semiBold),
                 )),
             //Made by Raka M.A
             const SizedBox(height: 4),
@@ -129,8 +127,8 @@ class _SignInPageState extends State<SignInPage> {
                 alignment: Alignment.topRight,
                 child: Text('Lupa Password?',
                     style: GoogleFonts.montserrat(
-                        textStyle: const TextStyle(
-                            color: primaryColor, fontWeight: semiBold)))),
+                        textStyle:
+                            TextStyle(color: color, fontWeight: semiBold)))),
             const SizedBox(height: 40),
             InkWell(
                 child: isLoading
@@ -139,7 +137,7 @@ class _SignInPageState extends State<SignInPage> {
                         height: 54,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: primaryColor,
+                          color: color,
                         ),
                         child: Align(
                             alignment: Alignment.center,
